@@ -4,21 +4,30 @@
 #
 Name     : perl-CDDB-File
 Version  : 1.05
-Release  : 1
+Release  : 2
 URL      : https://cpan.metacpan.org/authors/id/T/TM/TMTM/CDDB-File-1.05.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/T/TM/TMTM/CDDB-File-1.05.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libc/libcddb-file-perl/libcddb-file-perl_1.05-2.debian.tar.xz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0
-Requires: perl-CDDB-File-license
-Requires: perl-CDDB-File-man
+Requires: perl-CDDB-File-license = %{version}-%{release}
+BuildRequires : buildreq-cpan
 
 %description
 NAME
 CDDB::File - Parse a CDDB/freedb data file
 SYNOPSIS
 my $disc = CDDB::File->new("rock/f4109511");
+
+%package dev
+Summary: dev components for the perl-CDDB-File package.
+Group: Development
+Provides: perl-CDDB-File-devel = %{version}-%{release}
+
+%description dev
+dev components for the perl-CDDB-File package.
+
 
 %package license
 Summary: license components for the perl-CDDB-File package.
@@ -28,19 +37,11 @@ Group: Default
 license components for the perl-CDDB-File package.
 
 
-%package man
-Summary: man components for the perl-CDDB-File package.
-Group: Default
-
-%description man
-man components for the perl-CDDB-File package.
-
-
 %prep
-tar -xf %{SOURCE1}
-cd ..
 %setup -q -n CDDB-File-1.05
-mkdir -p %{_topdir}/BUILD/CDDB-File-1.05/deblicense/
+cd ..
+%setup -q -T -D -n CDDB-File-1.05 -b 1
+mkdir -p deblicense/
 mv %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/CDDB-File-1.05/deblicense/
 
 %build
@@ -65,12 +66,12 @@ make TEST_VERBOSE=1 test
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/perl-CDDB-File
-cp deblicense/copyright %{buildroot}/usr/share/doc/perl-CDDB-File/deblicense_copyright
+mkdir -p %{buildroot}/usr/share/package-licenses/perl-CDDB-File
+cp deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-CDDB-File/deblicense_copyright
 if test -f Makefile.PL; then
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
+make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
-./Build install --installdirs=site --destdir=%{buildroot}
+./Build install --installdirs=vendor --destdir=%{buildroot}
 fi
 find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
 find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null ';'
@@ -79,12 +80,12 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/site_perl/5.26.1/CDDB/File.pm
+/usr/lib/perl5/vendor_perl/5.26.1/CDDB/File.pm
 
-%files license
-%defattr(-,root,root,-)
-/usr/share/doc/perl-CDDB-File/deblicense_copyright
-
-%files man
+%files dev
 %defattr(-,root,root,-)
 /usr/share/man/man3/CDDB::File.3
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/perl-CDDB-File/deblicense_copyright

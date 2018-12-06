@@ -4,7 +4,7 @@
 #
 Name     : perl-CDDB-File
 Version  : 1.05
-Release  : 6
+Release  : 7
 URL      : https://cpan.metacpan.org/authors/id/T/TM/TMTM/CDDB-File-1.05.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/T/TM/TMTM/CDDB-File-1.05.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libc/libcddb-file-perl/libcddb-file-perl_1.05-2.debian.tar.xz

@@ -4,11 +4,11 @@
 #
 Name     : perl-CDDB-File
 Version  : 1.05
-Release  : 8
+Release  : 9
 URL      : https://cpan.metacpan.org/authors/id/T/TM/TMTM/CDDB-File-1.05.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/T/TM/TMTM/CDDB-File-1.05.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libc/libcddb-file-perl/libcddb-file-perl_1.05-2.debian.tar.xz
-Summary  : No detailed summary available
+Summary  : Parse a CDDB/freedb data file
 Group    : Development/Tools
 License  : GPL-2.0
 Requires: perl-CDDB-File-license = %{version}-%{release}
@@ -24,6 +24,7 @@ my $disc = CDDB::File->new("rock/f4109511");
 Summary: dev components for the perl-CDDB-File package.
 Group: Development
 Provides: perl-CDDB-File-devel = %{version}-%{release}
+Requires: perl-CDDB-File = %{version}-%{release}
 
 %description dev
 dev components for the perl-CDDB-File package.
@@ -42,7 +43,7 @@ license components for the perl-CDDB-File package.
 cd ..
 %setup -q -T -D -n CDDB-File-1.05 -b 1
 mkdir -p deblicense/
-mv %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/CDDB-File-1.05/deblicense/
+cp -r %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/CDDB-File-1.05/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/

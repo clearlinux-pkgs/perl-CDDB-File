@@ -4,7 +4,7 @@
 #
 Name     : perl-CDDB-File
 Version  : 1.05
-Release  : 12
+Release  : 13
 URL      : https://cpan.metacpan.org/authors/id/T/TM/TMTM/CDDB-File-1.05.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/T/TM/TMTM/CDDB-File-1.05.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libc/libcddb-file-perl/libcddb-file-perl_1.05-2.debian.tar.xz
@@ -79,7 +79,7 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-CDDB-File
-cp %{_builddir}/CDDB-File-1.05/deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-CDDB-File/a3c85b1af07e6347dd1506c652b212f7f7c3f562
+cp %{_builddir}/debian/copyright %{buildroot}/usr/share/package-licenses/perl-CDDB-File/a3c85b1af07e6347dd1506c652b212f7f7c3f562
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -103,4 +103,4 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.30.1/CDDB/File.pm
+/usr/lib/perl5/vendor_perl/5.30.2/CDDB/File.pm
